@@ -1,7 +1,7 @@
 <template>
-  <header class="header">
+  <header class="Header">
     <div>
-      <h1 class="header__title" :style="{ fontFamily: randomFont }">
+      <h1 class="HeaderTitle" :style="{ fontFamily: randomFont }">
         Random Animals Random Chats
       </h1>
     </div>
@@ -29,13 +29,13 @@ export default {
     setInterval(() => {
       const randomIndex = Math.floor(Math.random() * this.fonts.length);
       this.randomFont = this.fonts[randomIndex];
-    }, 500);
+    }, 2000);
   },
 };
 </script>
 
 <style>
-.header {
+.Header {
   width: 100%;
   max-height: 35vh;
   display: flex;
@@ -44,10 +44,10 @@ export default {
   background: url("./../assets/background2.GIF");
 }
 
-.header__title {
+.HeaderTitle {
   font-size: 5rem;
   font-weight: bold;
-  color: rgb(255, 255, 171);
+  color: #ffffab;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
     1px 1px 0 #000;
 }

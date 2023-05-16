@@ -1,7 +1,7 @@
 <template>
-  <div class="bulle">
+  <div class="Bulle">
     <img class="BulleImg" :src="bulleSrc" :style="bulleStyle" />
-    <p class="chat-text" :style="{ fontFamily: randomFont }">{{ this.chat }}</p>
+    <p class="ChatText" :style="{ fontFamily: randomFont }">{{ chat }}</p>
   </div>
 </template>
 
@@ -32,14 +32,14 @@ export default {
   },
   computed: {
     bulleSrc() {
-      return require(`./../assets/bulle.png`);
+      return require("../assets/bulle.png");
     },
     bulleStyle() {
       return {
         position: "relative",
         width: "400px",
         zIndex: "1",
-        transform: `scaleX(${this.index % 2 == 0 ? 1 : -1})`,
+        transform: `scaleX(${this.index % 2 === 0 ? 1 : -1})`,
       };
     },
   },
@@ -48,28 +48,25 @@ export default {
     setInterval(() => {
       const randomIndex = Math.floor(Math.random() * this.fonts.length);
       this.randomFont = this.fonts[randomIndex];
-    }, 500);
+    }, 2000);
   },
 };
 </script>
 
 <style>
-.bulle {
+.Bulle {
   position: relative;
-  top: 0;
-  left: 0;
   display: inline-block;
-  z-index: 1;
-  vertical-align: top; /* ajout de la propriété */
+  vertical-align: top;
 }
 
 .BulleImg {
   height: 150px;
 }
 
-.chat-text {
+.ChatText {
   position: absolute;
-  top: 30%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;

@@ -14,7 +14,7 @@ export default async function gptRequest (params){
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + String('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')
+      'Authorization': 'Bearer ' + String('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')
     },
     body: JSON.stringify(params_)
   };

@@ -2,35 +2,38 @@
   <LoadingVue v-if="!cardsLoaded" />
   <div v-if="cardsLoaded">
     <div>
-      <label class="filterAndSortTitle" for="sort-select">Trier par :</label>
+      <label class="FilterAndSortTitle" for="sort-select">Trier par :</label>
       <select
-        class="filterAndSortData"
+        class="FilterAndSortData"
         id="sort-select"
         @change="sortAnimalDatas($event.target.value)"
       >
-        <option value="name">Name</option>
-        <option value="firstname">Firstname</option>
+        <option value="name">Nom</option>
+        <option value="firstname">Prénom</option>
       </select>
     </div>
     <div>
-      <label class="filterAndSortTitle" for="filter-select-type"
-        >Filter By :</label
+      <label class="FilterAndSortTitle" for="filter-select-type"
+        >Filtrer par :</label
       >
       <select
-        class="filterAndSortData"
+        class="FilterAndSortData"
         id="filter-select-type"
         @change="filterAnimalDatas($event.target.value)"
       >
-        <option value="diet">Diet</option>
+        <option value="diet">Régime alimentaire</option>
       </select>
-      <select class="filterAndSortData"
+      <select
+        class="FilterAndSortData"
         id="filter-select-value"
         @change="filterAnimalDatas('diet', $event.target.value)"
       >
-        <option class="filterAndSortData" value="">Select Option</option>
-        <option class="filterAndSortData" value="Omnivore">Omnivore</option>
-        <option class="filterAndSortData" value="Carnivore">Carnivore</option>
-        <option class="filterAndSortData" value="Herbivore">Herbivore</option>
+        <option class="FilterAndSortData" value="">
+          Sélectionner une option
+        </option>
+        <option class="FilterAndSortData" value="Omnivore">Omnivore</option>
+        <option class="FilterAndSortData" value="Carnivore">Carnivore</option>
+        <option class="FilterAndSortData" value="Herbivore">Herbivore</option>
       </select>
     </div>
     <AnimalCard
@@ -67,7 +70,6 @@ export default {
     return {
       animalNames: null,
       allAnimalDatas: [],
-      // allAnimalDatasCopy:[], //Tableau de tri par défaut
       filteredAnimalDatas: [],
       cardsLoaded: false,
       filterBy: null,
@@ -80,8 +82,7 @@ export default {
   async created() {
     localStorage.setItem("cacheReady", "false");
     await this.loadAnimalData();
-    this.sortAnimalDatas("name"); // Tri par défaut = name pour tous les animaux
-    // this.allAnimalDatasCopy = this.allAnimalDatas;
+    this.sortAnimalDatas("name"); // Tri par défaut = nom pour tous les animaux
     this.cardsLoaded = true;
   },
 
@@ -102,8 +103,9 @@ export default {
           const firstAnimalData = data[0];
 
           const firstnameAndQuote = await gptRequest(
-            `Imagine a name and a quote for this animal : ${this.animalNames[i]}. Write it like this : "Name" + "Quote"`
+            `Imagine a name and a quote for this animal : ${this.animalNames[i]}. Write it like this: "Name" + "Quote"`
           );
+
           const gif = await searchGif(this.animalNames[i]);
 
           this.allAnimalDatas.push({
@@ -121,44 +123,30 @@ export default {
         }
       }
 
-      // Tri par défaut par nom
-      // this.allAnimalDatas.sort((a, b) => a.name.localeCompare(b.name));
       this.sortAnimalDatas("name"); // Tri par défaut = name pour tous les animaux
       this.filteredAnimalDatas = this.allAnimalDatas;
       this.cardsLoaded = true;
     },
 
     sortAnimalDatas(sortBy) {
-      console.log("Initial allAnimalDatas:", this.allAnimalDatas);
-      console.log("Initial filteredAnimalDatas:", this.filteredAnimalDatas);
-
       if (sortBy === "name") {
         this.filteredAnimalDatas = this.allAnimalDatas.sort((a, b) =>
           a.name.localeCompare(b.name)
         );
-        console.log("Sorting by name...");
       }
       if (sortBy === "firstname") {
         this.filteredAnimalDatas = this.allAnimalDatas.sort((a, b) =>
           a.firstname.localeCompare(b.firstname)
         );
-        console.log("Sorting by firstname...");
       }
-
-      console.log("Final allAnimalDatas:", this.allAnimalDatas);
-      console.log("Final filteredAnimalDatas:", this.filteredAnimalDatas);
     },
 
     filterAnimalDatas(filterBy, filterValue) {
       this.filterBy = filterBy;
       this.filterValue = filterValue;
-      if (filterBy === "diet") {
+      if (filterValue != "") {
         this.filteredAnimalDatas = this.allAnimalDatas.filter(
           (animalData) => animalData.diet === filterValue
-        );
-      } else if (filterBy === "location") {
-        this.filteredAnimalDatas = this.allAnimalDatas.filter((animalData) =>
-          animalData.location.includes(filterValue)
         );
       } else {
         this.filteredAnimalDatas = this.allAnimalDatas;
@@ -188,15 +176,15 @@ export default {
 };
 </script>
 
-<style>
-.filterAndSortTitle {
+<style scoped>
+.FilterAndSortTitle {
   font-size: 2rem;
   color: yellow;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
     1px 1px 0 #000;
 }
 
-.filterAndSortData {
+.FilterAndSortData {
   font-size: 1.5rem;
   color: blue;
   text-shadow: -1px -1px 0 #4800ff, 1px -1px 0 #ff00d9, -1px 1px 0 #00ff48,
