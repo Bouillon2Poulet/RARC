@@ -52,6 +52,7 @@ export default {
 }
 
 .Credits {
+  flex-wrap: wrap;
   width: auto;
   display: flex;
   justify-content: center;
