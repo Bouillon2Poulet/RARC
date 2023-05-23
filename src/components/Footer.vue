@@ -1,22 +1,22 @@
 <template>
   <div class="Footer">
     <div class="Credits">
-      <p class="ColorfulText">Réalisé par {{ name }}.</p>
+      <p class="ColorfulText">created by {{ name }}</p>
       <p class="ColorfulText">
-        Instagram :
+        instagram:
         <a :href="instagramLink" target="_blank">{{ instagramHandle }}</a>
       </p>
       <p class="ColorfulText">
-        Site réalisé dans le cadre de mes études à l'<a
+        website created as part of my studies at <a
           :href="imacLink"
           target="_blank"
-          >IMAC</a
-        >.
+          >imac</a
+        >
       </p>
       <p class="ColorfulText">
-        Merci à <a :href="giphyApiLink" target="_blank">Giphy API</a>,
-        <a :href="gptApiLink" target="_blank">GPT API</a>, et
-        <a :href="animalsApiLink" target="_blank">Animals API</a>.
+        thanks to <a :href="giphyApiLink" target="_blank">giphy api</a>,
+        <a :href="gptApiLink" target="_blank">openAI api</a>, and
+        <a :href="animalsApiLink" target="_blank">animals api</a>
       </p>
     </div>
   </div>
@@ -27,7 +27,7 @@ export default {
   name: "FooterVue",
   data() {
     return {
-      name: "Serres Romain",
+      name: "Romain Serres",
       instagramHandle: "@consomme2poyo",
       instagramLink: "https://www.instagram.com/consomme2poyo/",
       imacLink: "https://www.ingenieur-imac.fr/",
@@ -60,8 +60,7 @@ export default {
 }
 
 .Credits p {
-  margin-left: 10px;
-  margin-right: 10px;
+  margin: 10px;
   padding: 10px;
   background: url("./../assets/backgroundCredits.GIF");
   border-color: aqua;
@@ -100,6 +99,17 @@ export default {
   }
   100% {
     color: violet;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Specific styles for small screens */
+  .Footer {
+    flex-direction: column;
+  }
+  .Credits p {
+    margin: 5px;
+    font-size: 1.5rem;
   }
 }
 </style>

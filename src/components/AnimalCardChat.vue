@@ -47,7 +47,7 @@ export default {
   background: url("../assets/backgroundCard3.png");
   margin: 1rem;
   border-radius: 30%;
-  width: 400px;
+  width: 70%;
   padding: 15px;
   display: inline-block;
   vertical-align: top;
@@ -55,15 +55,9 @@ export default {
   border-width: 2rem;
 }
 
-.Img {
-  height: 200px;
-  width: 300px;
-  padding: 3%;
-}
-
 .Info {
   margin: auto;
-  width: 300px;
+  width: 80%; /* Modifier cette ligne */
   height: fit-content;
   padding: 2%;
   background: url(../assets/backgroundData2.jpg);

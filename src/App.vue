@@ -1,13 +1,12 @@
 <template>
   <div class="Page">
     <HeaderVue />
-    <div v-if="this.step == 'galery'">
+    <div v-if="step === 'gallery'" class="container">
       <AnimalGallery @selected-animals="handleSelectedAnimals" />
     </div>
-    <div v-if="this.step == 'chat'">
-      <AnimalChat :animalDatas="selectedCards" @exit="this.step = 'galery'" />
+    <div v-if="step === 'chat'" class="container">
+      <AnimalChat :animalDatas="selectedCards" @exit="step = 'gallery'" />
     </div>
-
     <FooterVue />
   </div>
 </template>
@@ -29,24 +28,19 @@ export default {
   data() {
     return {
       selectedCards: [],
-      step: "galery",
+      step: "gallery",
     };
   },
 
   created() {
-    console.log(localStorage.getItem("cacheReady"));
-    if (localStorage.getItem("cacheReady") === "true") {
-      console.log(localStorage.getItem("cacheReady"));
+    const cacheReady = localStorage.getItem("cacheReady");
+    if (cacheReady === "true") {
       const data1 = JSON.parse(localStorage.getItem("selectedAnimalData1"));
       const data2 = JSON.parse(localStorage.getItem("selectedAnimalData2"));
-      console.log(data1);
-      console.log(data2);
 
       this.step = "chat";
       this.selectedCards[0] = data1;
       this.selectedCards[1] = data2;
-
-      console.log(this.selectedCards);
     }
   },
 
@@ -72,5 +66,18 @@ export default {
 
 body {
   background: url("./assets/background3.GIF");
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+@media (max-width: 768px) {
+  /* Styles spécifiques pour les petits écrans */
+  .container {
+    padding: 0 10px;
+  }
 }
 </style>

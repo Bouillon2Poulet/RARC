@@ -51,4 +51,11 @@ export default {
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
     1px 1px 0 #000;
 }
+
+@media (max-width: 768px) {
+  /* Styles spécifiques pour les petits écrans */
+  .HeaderTitle {
+    font-size: 3rem;
+  }
+}
 </style>

@@ -1,35 +1,29 @@
 <template>
   <LoadingVue v-if="!cardsLoaded" />
   <div v-if="cardsLoaded">
+  <FullWidthComponent/>
     <div>
-      <label class="FilterAndSortTitle" for="sort-select">Trier par :</label>
+      <label class="FilterAndSortTitle" for="sort-select">Sort by :</label>
       <select
         class="FilterAndSortData"
         id="sort-select"
         @change="sortAnimalDatas($event.target.value)"
       >
-        <option value="name">Nom</option>
-        <option value="firstname">Prénom</option>
+        <option value="name">Name</option>
+        <option value="firstname">First name</option>
       </select>
     </div>
     <div>
       <label class="FilterAndSortTitle" for="filter-select-type"
-        >Filtrer par :</label
+        >Filter by diet ?</label
       >
-      <select
-        class="FilterAndSortData"
-        id="filter-select-type"
-        @change="filterAnimalDatas($event.target.value)"
-      >
-        <option value="diet">Régime alimentaire</option>
-      </select>
       <select
         class="FilterAndSortData"
         id="filter-select-value"
         @change="filterAnimalDatas('diet', $event.target.value)"
       >
         <option class="FilterAndSortData" value="">
-          Sélectionner une option
+          Default
         </option>
         <option class="FilterAndSortData" value="Omnivore">Omnivore</option>
         <option class="FilterAndSortData" value="Carnivore">Carnivore</option>
@@ -51,12 +45,14 @@ import gptRequest from "../services/gpt.js";
 import { getAnimalData } from "../services/animalAPI.js";
 import searchGif from "../services/giphy.js";
 import LoadingVue from "./Loading.vue";
+import FullWidthComponent from "./SelectText.vue";
 
 export default {
   name: "AnimalGallery",
   components: {
     AnimalCard,
     LoadingVue,
+    FullWidthComponent
   },
 
   props: {
@@ -90,7 +86,7 @@ export default {
     async loadAnimalData() {
       try {
         const response = await gptRequest(
-          "Can you give me 5 random animal species, providing only their names separated by a hyphen ('-') without any additional information?"
+          "Can you give me 10 random animal species, providing only their names separated by a hyphen ('-') without any additional information?"
         );
         this.animalNames = response.split("\n\n")[1].split("-");
       } catch (error) {
@@ -158,7 +154,6 @@ export default {
 
       if (this.selectedAnimalDatas.length >= 2) {
         localStorage.setItem("cacheReady", "true");
-        console.log(localStorage.getItem("cacheReady"));
         localStorage.setItem(
           "selectedAnimalData1",
           JSON.stringify(this.selectedAnimalDatas[0])

@@ -5,7 +5,7 @@
       <p>{{ animalData.name }} - {{ animalData.firstname }}</p>
       <p>{{ animalData.quote }}</p>
       <p>{{ animalData.diet }}</p>
-      <p>{{ animalData.location }}</p>
+      <p>{{ this.animalLocationParsed}}</p>
     </div>
   </div>
 </template>
@@ -25,6 +25,7 @@ export default {
   data() {
     return {
       borderAngle: 0,
+      animalLocationParsed : ""
     };
   },
   computed: {
@@ -38,6 +39,11 @@ export default {
     setInterval(() => {
       this.borderAngle = (this.borderAngle + 1) % 360;
     }, 20);
+
+    for(let i = 0; i<this.animalData.location.length; i++){
+      this.animalLocationParsed += this.animalData.location[i] + "\n";
+      console.log(this.animalLocationParsed);
+    }
   },
 };
 </script>
@@ -45,14 +51,14 @@ export default {
 <style>
 .Card {
   background: url("../assets/backgroundCard1.png");
-  margin: 1rem;
+  margin: 1rem; /* Ajouter une marge automatique à gauche et à droite */
   border-radius: 30%;
   width: 400px;
   padding: 15px;
   display: inline-block;
   vertical-align: top;
   border-style: solid;
-  border-width: 2rem;
+  border-width: 3em;
   transition: filter 0.3s ease-in-out;
 }
 
@@ -62,13 +68,15 @@ export default {
 
 .Img {
   height: 200px;
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   padding: 3%;
 }
 
 .Data {
   margin: auto;
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   height: fit-content;
   padding: 2%;
   background: url(../assets/backgroundData.JPG);
@@ -84,5 +92,16 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+  .Card {
+    width: 80%;
+    border-width: 1rem;
+  }
+
+  .Data {
+    font-size: 1rem;
+  }
 }
 </style>

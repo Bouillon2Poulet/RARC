@@ -46,10 +46,10 @@ export default {
     this.talkLoaded = true;
   },
   methods: {
-    async indexIncrement() {
+    indexIncrement() {
       if (this.chatIndex === this.chat.length - 1) {
         this.talkLoaded = false;
-        await this.continueChat();
+        this.continueChat();
       }
       this.chatIndex++;
     },
@@ -84,36 +84,41 @@ export default {
 <style scoped>
 .AnimalChat {
   display: flex;
+  flex-wrap:nowrap;
   justify-content: center;
-gap: 2rem;
-align-items: flex-start;
+  gap: 2rem;
 }
 
 .Exit {
-display: inline-block;
-color: red;
-margin: auto;
-padding: 2%;
-width: fit-content;
-height: fit-content;
-background: url("../assets/backgroundCard3.png");
-font-family: "Comic Sans MS", cursive, sans-serif;
-font-weight: bold;
-font-style: italic;
-font-size: x-large;
-border-radius: 40%;
-text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #000, -1px 1px 0 #000,
-1px 1px 0 #000;
-border: 10px solid red;
+  display: inline-block;
+  color: red;
+  margin: auto;
+  padding: 2%;
+  width: fit-content;
+  height: fit-content;
+  background: url("../assets/backgroundCard3.png");
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-weight: bold;
+  font-style: italic;
+  font-size: x-large;
+  border-radius: 40%;
+  text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+  border: 10px solid red;
 }
-
 
 .TalkContainer {
-display: flex;
-margin: 0 10px;
-justify-content: center;
-align-items: center;
-flex-direction: column;
+  display: flex;
+  margin: 0 10px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
+@media (max-width: 768px) {
+  .AnimalChat {
+    flex-direction: column;
+    align-items: center;
+  }
+}
 </style>
